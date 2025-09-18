@@ -1,0 +1,57 @@
+openapi: 3.0.1
+info:
+  title: Interview
+  version: 1.0.0
+servers:
+  - url: https://localhost:7165/
+paths:
+  /api/CheckInterviews:
+    post:
+      tags:
+        - Interview
+      operationId: CheckInterviews
+      description: Computes the number of scheduled interview candidates scheduled for the given day. Authorization is not required.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckInterviewsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful retrieval of the number of scheduled interviews.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckInterviewsResponse'
+        '400':
+          description: >- 
+            If any of the following conditions are met:
+            
+            * CheckInterviewsRequest is not provided.
+            
+            * dateOfInterview is not provided or could not be parsed.
+        '502':
+          description: Service failure retrieving interviews.
+        '504':
+          description: Service timeout retrieving interviews.
+components:
+  schemas:
+    CheckInterviewsRequest:
+      type: object
+      required:
+      - dateOfInterview
+      properties:
+        dateOfInterview:
+          type: string
+          format: date-time
+          description: The date to calculate the number of scheduled interview candidates. The provided value must be a date or date time conforming to ISO 8601. If a time zone offset or UTC is used the offset will be ignored and only the date portion will be used for comparison.
+    CheckInterviewsResponse:
+      type: object
+      required:
+      - numberOfInterviews
+      properties:
+        numberOfInterviews:
+          type: integer
+          format: int64
+          description: The number of interviews scheduled.

@@ -1,0 +1,6 @@
+@Interview_HostAddress = http://localhost:5171
+
+GET {{Interview_HostAddress}}/api/CheckInterviews
+Accept: application/json
+
+###

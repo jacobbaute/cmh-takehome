@@ -6,4 +6,6 @@ namespace Interview;
 public class CheckInterviewsResponse
 {
     public long NumberOfInterviews { get; set; }
+
+    public required List<Interview> Interviews { get; set; }
 }

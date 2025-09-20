@@ -65,9 +65,12 @@ public class InterviewController : ControllerBase
             return new StatusCodeResult(statusCode);
         }
 
+        List<ScheduledInterview> filteredInterviews = interviewAgent.FilterInterviewsOnDay(scheduledInterviews, checkInterviewsRequest.DateOfInterview);
+
         return Ok(new CheckInterviewsResponse
         {
-            NumberOfInterviews = interviewAgent.CalculateInterviewsScheduledForDay(scheduledInterviews, checkInterviewsRequest.DateOfInterview)
+            NumberOfInterviews = filteredInterviews.Count,
+            Interviews = InterviewTranslator.ToInterviews(filteredInterviews)
         });
     }
 }

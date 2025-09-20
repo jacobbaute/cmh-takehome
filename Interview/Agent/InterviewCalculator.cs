@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace Interview.Agent;
 
 public class InterviewAgent
@@ -27,21 +29,21 @@ public class InterviewAgent
     }
 
     /// <summary>
-    /// Calculates the number of ScheduledInterviews that are on the same day as the dateToCheck.
+    /// Returns the ScheduledInterviews that are on the same day as the dateToCheck.
     /// </summary>
     /// <param name="scheduledInterviews">A list of scheduled interviews.</param>
     /// <param name="dateToCheck">The date to compare against.</param>
     /// <returns>The number of interviews on the given day.</returns>
-    public long CalculateInterviewsScheduledForDay(List<ScheduledInterview> scheduledInterviews, DateTimeOffset dateToCheck)
+    public List<ScheduledInterview> FilterInterviewsOnDay(List<ScheduledInterview> scheduledInterviews, DateTimeOffset dateToCheck)
     {
-        long scheduledInterviewsCount = 0;
+        List<ScheduledInterview> interviewsOnDay = new List<ScheduledInterview>();
         foreach (ScheduledInterview scheduledInterview in scheduledInterviews)
         {
             if (scheduledInterview.DateOfInterview.Date == dateToCheck.Date)
             {
-                scheduledInterviewsCount++;
+                interviewsOnDay.Add(scheduledInterview);
             }
         }
-        return scheduledInterviewsCount;
+        return interviewsOnDay;
     }
 }

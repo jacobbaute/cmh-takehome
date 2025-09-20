@@ -50,8 +50,21 @@ components:
       type: object
       required:
       - numberOfInterviews
+      - interviews
       properties:
         numberOfInterviews:
           type: integer
           format: int64
           description: The number of interviews scheduled.
+        interviews:
+          type: array
+          description: The interviews on the schedule. May be empty.
+          items:
+            $ref: '#/components/schemas/Interview'
+    Interview:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string

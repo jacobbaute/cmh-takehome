@@ -20,9 +20,12 @@ public class InterviewAgentTest
         DateTimeOffset tomorrow = today.AddDays(1);
         List<ScheduledInterview> scheduledInterviews = [new ScheduledInterview(today, "Jim"),
             new ScheduledInterview(today, "James"), new ScheduledInterview(tomorrow, "John")];
+        List<ScheduledInterview> expectedInterviewsToday = [new ScheduledInterview(today, "Jim"),
+            new ScheduledInterview(today, "James")];
+        List<ScheduledInterview> expectedInterviewsTomorrow = [new ScheduledInterview(tomorrow, "John")];
 
-        Assert.That(agent.CalculateInterviewsScheduledForDay(scheduledInterviews, today), Is.EqualTo(2));
-        Assert.That(agent.CalculateInterviewsScheduledForDay(scheduledInterviews, tomorrow), Is.EqualTo(1));
+        Assert.That(agent.FilterInterviewsOnDay(scheduledInterviews, today), Is.EqualTo(expectedInterviewsToday));
+        Assert.That(agent.FilterInterviewsOnDay(scheduledInterviews, tomorrow), Is.EqualTo(expectedInterviewsTomorrow));
     }
 
     [Test]
